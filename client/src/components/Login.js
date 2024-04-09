@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from './Button';
+import InputText from './InputText';
 
 const Login = () => { 
     const [email, setEmail] = useState('')
@@ -15,21 +17,24 @@ const Login = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
-                <input
+                <InputText
                  type="text"
                  placeholder="Email"
                  value={email}
                  onChange={(e) => setEmail(e.target.value)}
                  required
                 />
-                <input 
+                <InputText 
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <button type="submit">Login</button>
+                <Button 
+                    buttonText="Log In" 
+                    onClick={handleLogin}
+                />
             </form>
         </div>
     )

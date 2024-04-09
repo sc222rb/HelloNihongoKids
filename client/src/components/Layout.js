@@ -14,6 +14,9 @@ const Layout = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
+            <Link to="/games">Games</Link>
+          </li>
+          <li>
             <Link to="/logIn">Log In</Link>
           </li>
           <li>
@@ -21,9 +24,6 @@ const Layout = () => {
           </li>
           <li>
             <Link to="/progressTracking">Progress Tracking</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
           </li>
         </ul>
       </nav>

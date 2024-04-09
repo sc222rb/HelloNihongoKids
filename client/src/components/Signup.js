@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from './Button';
+import InputText from './InputText';
 
 const Signup = () => {
   const [userName, setUserName] = useState('')
@@ -14,28 +16,31 @@ const Signup = () => {
     <div>
       <h1>Signup</h1>
       <form onSubmit={handleSignup}>
-        <input 
+        <InputText 
           type="userName"
           placeholder="Name"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           required
         />
-        <input 
+        <InputText 
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
+        <InputText
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
         />
-        <button type="submit">Signup</button>
+        <Button
+          buttonText="Sign Up"
+          onClick={handleSignup}
+        />
       </form>
     </div>
   )

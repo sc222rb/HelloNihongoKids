@@ -9,6 +9,7 @@ import LogIn from './components/Login.js';
 import NoMatch from './components/NoMatch.js';
 import ProgressTracking from './components/ProgressTracking.js';
 import Signup from './components/Signup.js';
+import UserProfile from './components/UserProfile.js';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="games" element={<Games />} />
             <Route path="login" element={<LogIn />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="userProfile" element={<UserProfile />} />
             <Route path="progressTracking" element={<ProgressTracking />} />
             <Route path="*" element={<NoMatch />} />
           </Route>

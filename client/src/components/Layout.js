@@ -23,6 +23,9 @@ const Layout = () => {
             <Link to="/signUp">Sign Up</Link>
           </li>
           <li>
+            <Link to="/userProfile">User Profile</Link>
+          </li>
+          <li>
             <Link to="/progressTracking">Progress Tracking</Link>
           </li>
         </ul>

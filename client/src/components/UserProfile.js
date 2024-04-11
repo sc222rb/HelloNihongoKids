@@ -1,55 +1,29 @@
-import React, { useState } from 'react';
-import Button from './Button';
+import React from 'react';
+import { Button, Col, Container, Image, Row, Stack } from 'react-bootstrap';
 
 const UserProfile = () => {
-    const [avatar, setAvatar] = useState('');
 
-    // State variable for edit mode
-    const [editMode, setEditMode] = useState(false);
-
-    const handleEdit = (event) => {
-        event.preventDefault();
-        // handle form edit, e.g., send data to backend API
-        console.log('Edited:', { avatar });
-        // For now, we'll just toggle edit mode off
-        setEditMode(false);
-    };
-
-    // Function to toggle edit mode
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        console.log('Edited:')
+    }
 
     return (
-        <div>
-            <h2>User Profile</h2>
-            <h3>Username</h3>
-            {editMode ? (
-                <form onSubmit={handleEdit}>
-                    <div>
-                        <label>Avatar:</label>
-                        <select
-                            value={avatar}
-                            onChange={(e) => setAvatar(e.target.value)}
-                        >
-                            <option value="avatar1">Avatar 1</option>
-                            <option value="avatar2">Avatar 2</option>
-                            <option value="avatar3">Avatar 3</option>
-                            <option value="avatar4">Avatar 4</option>
-                            <option value="avatar5">Avatar 5</option>
-                        </select>
-                    </div>
-                    <Button buttonText="Save Changes" type="submit" />
-                    <Button buttonText="Cancel"type="button" onClick={toggleEditMode} />
-                </form>
-            ) : (
-                <div>
-                    <p>Avatar: {avatar}</p>
-                    <Button buttonText="New Avatar" onClick={toggleEditMode} />
-                </div>
-            )}
-        </div>
-    );
-};
+        <Stack gap={2} className="col-md-5 mx-auto">
+            <Container>
+                <Row className="mt-5">
+                    <Col xs={12} className="text-center">
+                        <Image src="https://via.placeholder.com/150" roundedCircle />
+                    </Col>
+                    <Col xs={12} className="text-center">
+                        <h2>User Name</h2>
+                        <p>Email: user@example.com</p>
+                        <Button variant="primary" onSubmit={handleSubmit}>Edit Profile</Button>
+                    </Col>
+                </Row>
+            </Container>
+        </Stack>
+    )
+}
 
 export default UserProfile

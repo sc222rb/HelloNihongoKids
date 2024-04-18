@@ -2,14 +2,16 @@ import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/About.js';
-import Games from './pages/GamesPage/GamesPage.js';
-import Home from './pages/Home/Home.js';
+import Games from './components/Games/Games.js';
+import Home from './components/Home/Home.js';
 import Layout from './components/Layout/Layout.js';
-import Login from './components/Auth/Login.js';
+import Login from './components/Login/Login.js';
 import NotFound from './components/NotFound/NotFound.js';
+import Profile from './components/Profile/Profile.js';
 import ProgressTracking from './components/ProgressTracking.js';
-import Signup from './components/Auth/Signup.js';
-import UserProfile from './pages/UserProfile/UserProfile.js';
+import Signup from './components/Signup/Signup.js';
+import UpdateProfile from './components/UpdateProfile/UpdateProfile.js';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true')
@@ -21,7 +23,8 @@ const App = () => {
   const handleLogout = () => {
     setIsLoggedIn(false)
     localStorage.removeItem('accessToken')
-  };
+    localStorage.removeItem('isLoggedIn')
+  }
 
   return (
     <Router>
@@ -39,7 +42,8 @@ const App = () => {
         <Route path="/games" element={<Games />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/user-update" element={<UpdateProfile />} /> 
         <Route path="/progressTracking" element={<ProgressTracking />} />
         <Route path="*" element={<NotFound />} />
         </Route>

@@ -12,7 +12,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/about">About</Nav.Link>
             <Nav.Link as={Link} to="/games">Games</Nav.Link>
-            <Nav.Link as={Link} to="/userProfile">User Profile</Nav.Link>
+            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
             {isLoggedIn ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             ) : (

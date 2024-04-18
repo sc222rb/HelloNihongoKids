@@ -5,7 +5,6 @@
  * @version 1.0.0
  */
 
-// import createError from 'http-errors'
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors'
 import { User } from '../../models/user.js'
@@ -47,7 +46,8 @@ export class AccountController {
       res
         .status(201)
         .json({
-          access_token: accessToken
+          access_token: accessToken,
+          id: user.id
           // refresh_token: refreshToken
         })
     } catch (error) {
@@ -70,14 +70,19 @@ export class AccountController {
     try {
       const user = new User({
         username: req.body.username,
-        password: req.body.password,
         email: req.body.email,
+        password: req.body.password,
+        avatar: req.body.avatar,
         permissionLevel: 1
       })
 
       await user.save()
+      const location = new URL(
+        `${req.protocol}://${req.get('host')}${req.baseUrl}/${user.id}`
+      )
 
       res
+        .location(location.href)
         .status(201)
         .json({ id: user.id })
     } catch (error) {

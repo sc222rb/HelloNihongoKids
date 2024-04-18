@@ -29,9 +29,8 @@ const Signup = () => {
     console.log('username:', username)
     console.log('Email:', email)
     console.log('Password:', password)
-    console.log('avatar:', avatar)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password, avatar })
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password })
       if (response.status === 201) {
         navigate('/login');
       } else {

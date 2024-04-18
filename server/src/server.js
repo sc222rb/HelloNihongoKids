@@ -10,21 +10,33 @@ import helmet from 'helmet'
 import logger from 'morgan'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
+import cors from 'cors'
 
 try {
   await connectDB()
 
   const app = express()
 
+  // Enable CORS
+  app.use(cors())
+
   // Set various HTTP headers to make the application little more secure (https://www.npmjs.com/package/helmet).
   app.use(helmet())
   app.use(
-    helmet.contentSecurityPolicy({
-      directives: {
-        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", 'code.jquery.com', 'cdn.jsdelivr.net', "'unsafe-eval'"],
-        'img-src': ["'self'"]
-      }
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          'default-src': ["'self'"],
+          'script-src': [
+            "'self'",
+            'cdn.jsdelivr.net'
+          ],
+          'img-src': ["'self'"]
+        }
+      },
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+      crossOriginEmbedderPolicy: false
     })
   )
 

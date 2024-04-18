@@ -18,12 +18,13 @@ const App = () => {
 
   const handleLogin = () => {
     setIsLoggedIn(true)
-  };
+  }
 
   const handleLogout = () => {
     setIsLoggedIn(false)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('userId')
   }
 
   return (

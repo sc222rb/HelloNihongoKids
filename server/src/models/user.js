@@ -32,6 +32,10 @@ const schema = new mongoose.Schema({
     maxLength: [256, 'The password must be of maximum length 256 characters.'],
     required: [true, 'Password is required.']
   },
+  // todo! fix avatar
+  avatar: {
+    type: String
+  },
   permissionLevel: Number
 }, {
   timestamps: true,

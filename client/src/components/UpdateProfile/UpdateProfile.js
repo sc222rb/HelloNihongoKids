@@ -1,27 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = ({ user }) => {
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
-    setEmail(user.email || '')
-  }, [user.email])
+    // Fetch user data again when component mounts
+    fetchUser()
+  }, [])
+
+  const fetchUser = async () => {
+    try {
+      const userId = localStorage.getItem('userId')
+      const accessToken = localStorage.getItem('accessToken')
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      setUsername(response.data.username)
+      setEmail(response.data.email)
+    } catch (error) {
+      setError('Error fetching user data.')
+    }
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/user/${user.id}`, { email, password })
-      if (response.status === 201) {
-        navigate('/user')
+      const userId = localStorage.getItem('userId')
+      const accessToken = localStorage.getItem('accessToken')
+      console.log('Update Profile ...')
+      console.log('Name:', username)
+      console.log('Email:', email)
+      console.log('Password:', password)
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}`, { username, email, password }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      if (response.status === 204) {
+        navigate('/')
       } else {
         setError('Unexpected response. Please try again.')
       }
@@ -47,6 +76,16 @@ const UpdateProfile = ({ user }) => {
       <h2 className="text-center mb-4">Edit Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+          <Form.Label><FontAwesomeIcon icon={faUser} /> Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="What is the child's name?"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label><FontAwesomeIcon icon={faEnvelope} /> Email</Form.Label>
           <Form.Control
@@ -58,10 +97,10 @@ const UpdateProfile = ({ user }) => {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label><FontAwesomeIcon icon={faLock} /> New Password</Form.Label>
+          <Form.Label><FontAwesomeIcon icon={faLock} /> Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="New Password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

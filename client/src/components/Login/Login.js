@@ -21,9 +21,10 @@ const Login = ({ handleLogin }) => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
         if (response.status === 201) {
           const accessToken = response.data.access_token
-          console.log(accessToken)
+          const userId = response.data.id
           localStorage.setItem('accessToken', accessToken)
           localStorage.setItem('isLoggedIn', true)
+          localStorage.setItem('userId', userId)
           handleLogin() // Call handleLogin to update the isLoggedIn state
           navigate('/')
         } else {

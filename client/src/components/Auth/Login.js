@@ -5,7 +5,7 @@ import { faEnvelope, faLock, faPenToSquare } from '@fortawesome/free-solid-svg-i
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const Login = () => {
+const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -18,8 +18,13 @@ const Login = () => {
     console.log('Password:', password)
 
     try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password });
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
         if (response.status === 201) {
+          const accessToken = response.data.access_token
+          console.log(accessToken)
+          localStorage.setItem('accessToken', accessToken)
+          localStorage.setItem('isLoggedIn', true)
+          handleLogin() // Call handleLogin to update the isLoggedIn state
           navigate('/')
         } else {
           setError('Unexpected response. Please try again.')

@@ -14,15 +14,4 @@ const controller = new CharactersController()
 
 // GET characters
 router.get('/', (req, res, next) => controller.findAll(req, res, next))
-
-// GET characters/:id
-router.get('/:id', (req, res, next) => controller.find(req, res, next))
-
-// POST characters
-router.post('/', (req, res, next) => controller.create(req, res, next))
-
-// PUT characters/:id
-router.put('/:id', (req, res, next) => controller.update(req, res, next))
-
-// Delete characters/:id
-router.delete('/:id', (req, res, next) => controller.delete(req, res, next))
+router.get('/random', (req, res, next) => controller.getRandomCharacter(req, res, next))

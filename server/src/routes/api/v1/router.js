@@ -9,11 +9,13 @@ import express from 'express'
 import { router as accountRouter } from './account-router.js'
 import { router as usersRouter } from './users-router.js'
 import { router as charactersRouter } from './characters-router.js'
+import { router as gameRouter } from './game-router.js'
 
 export const router = express.Router()
 
 router.get('/', (req, res) => res.json({ message: 'Hooray! Welcome to version 1 of this very simple RESTful API!' }))
 router.get('/status', (req, res) => res.json({ message: 'API version 1 is up and running!' }))
-router.use('/', accountRouter)
+router.use('/auth', accountRouter)
 router.use('/users', usersRouter)
 router.use('/characters', charactersRouter)
+router.use('/game', gameRouter)

@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import About from './components/About.js';
 import Games from './components/Games/Games.js';
 import Home from './components/Home/Home.js';
@@ -28,9 +28,9 @@ const App = () => {
   }
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
-      <Route
+        <Route
           path="/"
           element={
             <Layout isLoggedIn={isLoggedIn} handleLogout={handleLogout}>
@@ -44,7 +44,7 @@ const App = () => {
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/user-update" element={<UpdateProfile />} /> 
+          <Route path="/user-update" element={<UpdateProfile />} />
         <Route path="/progressTracking" element={<ProgressTracking />} />
         <Route path="*" element={<NotFound />} />
         </Route>

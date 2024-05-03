@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "1dv50e Hello Nihongo Kids client",
   "private": true,
+  "homepage": "/hnk",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",

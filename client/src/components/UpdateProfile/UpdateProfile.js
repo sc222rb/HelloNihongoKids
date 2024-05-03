@@ -76,7 +76,7 @@ const UpdateProfile = ({ user }) => {
       <h2 className="text-center mb-4">Edit Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label><FontAwesomeIcon icon={faUser} /> Name</Form.Label>
           <Form.Control
             type="text"

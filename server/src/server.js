@@ -11,11 +11,31 @@ import logger from 'morgan'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'
 import cors from 'cors'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 try {
   await connectDB()
 
   const app = express()
+
+  // Get the directory name of this module's path.
+  const directoryFullName = dirname(fileURLToPath(import.meta.url))
+
+  // Serve static files from the 'build' directory
+  app.use(express.static(`${directoryFullName}/../../client/build`))
+
+  // Define route to serve the React app
+  app.get('*', (req, res) => {
+    res.sendFile(`${directoryFullName}/../../client/build/index.html`)
+  })
+
+  // Parse requests of the content type application/x-www-form-urlencoded.
+  // Populates the request object with a body object (req.body).
+  app.use(express.urlencoded({ extended: false }))
+
+  // Serve static files.
+  // app.use(express.static(join(directoryFullName, '..', 'public')))
 
   // Enable CORS
   app.use(cors())

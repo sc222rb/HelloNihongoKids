@@ -18,6 +18,9 @@ const cardImages = [
 const Games = () => {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
+  const [choiceOne, setChoiceOne] = useState(null)
+  const [choiceTwo, setChoiceTwo] = useState(null)
+
   // shuffle cards for new game
   const shuffleCards = () => {
     const shuffledCards = [...cardImages]
@@ -28,14 +31,18 @@ const Games = () => {
     setTurns(0)
   }
 
-  console.log(cards, turns)
+  // handle a choice
+  const handleChoice = (card) => {
+    console.log(card)
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+  }
 
   return (
     <Container className="py-5">
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
           <div className="Games">
-            <h1>Hiragana and Katakna Match</h1>
+            <h1>Hiragana and Katakana Match</h1>
             <button onClick={shuffleCards}>New Game</button>
 
             <div className="card-grid">
@@ -43,6 +50,7 @@ const Games = () => {
                 <SingleCard
                   key={card.id}
                   card={card}
+                  handleChoice={handleChoice}
                 />
               ))}
             </div>

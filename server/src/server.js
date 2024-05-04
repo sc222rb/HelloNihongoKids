@@ -22,11 +22,14 @@ try {
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
 
+  // Set the base URL to use for all relative URLs in a document.
+  const baseURL = process.env.BASE_URL || '/'
+
   // Serve static files from the 'build' directory
-  app.use(express.static(`${directoryFullName}/../../client/build`))
+  app.use(baseURL, express.static(`${directoryFullName}/../../client/build`))
 
   // Define route to serve the React app
-  app.get('*', (req, res) => {
+  app.get(`${baseURL}/*`, (req, res) => {
     res.sendFile(`${directoryFullName}/../../client/build/index.html`)
   })
 
@@ -67,7 +70,7 @@ try {
   app.use(express.json())
 
   // Register routes.
-  app.use('/', router)
+  app.use(baseURL, router)
 
   // Error handler.
   app.use(function (err, req, res, next) {

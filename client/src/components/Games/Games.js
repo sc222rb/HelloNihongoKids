@@ -15,16 +15,16 @@ const IMG_URL_KATA_E = (new URL('../Games/img/katakana/a-gyou/e.png', import.met
 const IMG_URL_KATA_O = (new URL('../Games/img/katakana/a-gyou/o.png', import.meta.url)).href
 
 const cardImages = [
-  { "src": IMG_URL_HIRA_A },
-  { "src": IMG_URL_HIRA_I },
-  { "src": IMG_URL_HIRA_U },
-  { "src": IMG_URL_HIRA_E },
-  { "src": IMG_URL_HIRA_O },
-  { "src": IMG_URL_KATA_A },
-  { "src": IMG_URL_KATA_I },
-  { "src": IMG_URL_KATA_U },
-  { "src": IMG_URL_KATA_E },
-  { "src": IMG_URL_KATA_O },
+  { "src": IMG_URL_HIRA_A, "filename": "a.png" },
+  { "src": IMG_URL_HIRA_I, "filename": "i.png" },
+  { "src": IMG_URL_HIRA_U, "filename": "u.png" },
+  { "src": IMG_URL_HIRA_E, "filename": "e.png" },
+  { "src": IMG_URL_HIRA_O, "filename": "o.png" },
+  { "src": IMG_URL_KATA_A, "filename": "a.png" },
+  { "src": IMG_URL_KATA_I, "filename": "i.png" },
+  { "src": IMG_URL_KATA_U, "filename": "u.png" },
+  { "src": IMG_URL_KATA_E, "filename": "e.png" },
+  { "src": IMG_URL_KATA_O, "filename": "o.png" }
 ]
 const Games = () => {
   const [cards, setCards] = useState([])
@@ -52,7 +52,7 @@ const Games = () => {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
 
-      if (choiceOne.src === choiceTwo.src) {
+      if (choiceOne.filename === choiceTwo.filename) {
         console.log('those cards match')
         resetTurn()
       } else {

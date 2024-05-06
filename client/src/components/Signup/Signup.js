@@ -30,7 +30,7 @@ const Signup = () => {
     console.log('Email:', email)
     console.log('Password:', password)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { username, email, password })
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password })
       if (response.status === 201) {
         navigate('/login');
       } else {
@@ -109,7 +109,7 @@ const Signup = () => {
           />
         </Form.Group>
         <div className="text-center">
-          <Button variant="primary" type="submit">Submit</Button>
+          <button type="submit">Submit</button>
         </div>
       </Form>
     </div>

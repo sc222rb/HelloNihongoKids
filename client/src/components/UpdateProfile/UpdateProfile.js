@@ -106,7 +106,7 @@ const UpdateProfile = ({ user }) => {
           />
         </Form.Group>
         <div className="text-center">
-          <Button variant="primary" type="submit">Save Changes</Button>
+          <button type="submit">Save Changes</button>
         </div>
       </Form>
     </div>

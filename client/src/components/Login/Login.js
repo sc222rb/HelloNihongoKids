@@ -18,7 +18,7 @@ const Login = ({ handleLogin }) => {
     console.log('Password:', password)
 
     try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { email, password })
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
         if (response.status === 201) {
           const accessToken = response.data.access_token
           const userId = response.data.id
@@ -85,7 +85,7 @@ const Login = ({ handleLogin }) => {
                     </div>
                 </Form.Group>
                 <div className="text-center mb-3">
-                    <Button variant="primary" type="submit">Log In</Button>
+                    <button type="submit">Log In</button>
                 </div>
             </Form>
         </div>

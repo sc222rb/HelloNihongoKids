@@ -31,6 +31,7 @@ const Games = () => {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  const [disabled, setDisabled] = useState(false)
 
   // shuffle cards for new game
   const shuffleCards = () => {
@@ -51,7 +52,7 @@ const Games = () => {
   // compare 2 selected cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
-
+      setDisabled(true)
       if (choiceOne.filename === choiceTwo.filename) {
         setCards(prevCards => {
           return prevCards.map(card => {
@@ -64,7 +65,7 @@ const Games = () => {
         })
         resetTurn()
       } else {
-        setTimeout(() => resetTurn(), 1000)      
+        setTimeout(() => resetTurn(), 1000)
       }
     }
   }, [choiceOne, choiceTwo])
@@ -76,6 +77,7 @@ const Games = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns(prevTurns => prevTurns + 1)
+    setDisabled(false)
   }
 
   return (
@@ -93,6 +95,7 @@ const Games = () => {
                   card={card}
                   handleChoice={handleChoice}
                   flipped={card === choiceOne || card === choiceTwo || card.matched}
+                  disabled={disabled}
                 />
               ))}
             </div>

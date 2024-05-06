@@ -15,16 +15,16 @@ const IMG_URL_KATA_E = (new URL('../Games/img/katakana/a-gyou/e.png', import.met
 const IMG_URL_KATA_O = (new URL('../Games/img/katakana/a-gyou/o.png', import.meta.url)).href
 
 const cardImages = [
-  { "src": IMG_URL_HIRA_A, "filename": "a.png" },
-  { "src": IMG_URL_HIRA_I, "filename": "i.png" },
-  { "src": IMG_URL_HIRA_U, "filename": "u.png" },
-  { "src": IMG_URL_HIRA_E, "filename": "e.png" },
-  { "src": IMG_URL_HIRA_O, "filename": "o.png" },
-  { "src": IMG_URL_KATA_A, "filename": "a.png" },
-  { "src": IMG_URL_KATA_I, "filename": "i.png" },
-  { "src": IMG_URL_KATA_U, "filename": "u.png" },
-  { "src": IMG_URL_KATA_E, "filename": "e.png" },
-  { "src": IMG_URL_KATA_O, "filename": "o.png" }
+  { "src": IMG_URL_HIRA_A, "filename": "a.png", matched: false },
+  { "src": IMG_URL_HIRA_I, "filename": "i.png", matched: false },
+  { "src": IMG_URL_HIRA_U, "filename": "u.png", matched: false },
+  { "src": IMG_URL_HIRA_E, "filename": "e.png", matched: false },
+  { "src": IMG_URL_HIRA_O, "filename": "o.png", matched: false },
+  { "src": IMG_URL_KATA_A, "filename": "a.png", matched: false },
+  { "src": IMG_URL_KATA_I, "filename": "i.png", matched: false },
+  { "src": IMG_URL_KATA_U, "filename": "u.png", matched: false },
+  { "src": IMG_URL_KATA_E, "filename": "e.png", matched: false },
+  { "src": IMG_URL_KATA_O, "filename": "o.png", matched: false }
 ]
 const Games = () => {
   const [cards, setCards] = useState([])
@@ -53,15 +53,24 @@ const Games = () => {
     if (choiceOne && choiceTwo) {
 
       if (choiceOne.filename === choiceTwo.filename) {
-        console.log('those cards match')
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.filename === choiceOne.filename) {
+              return { ...card, matched: true }
+            } else {
+              return card
+            }
+          })
+        })
         resetTurn()
       } else {
-        console.log('those cards do not match')
         resetTurn()
       }
 
     }
   }, [choiceOne, choiceTwo])
+
+  console.log(cards)
 
   // reset choices & increase turn
   const resetTurn = () => {

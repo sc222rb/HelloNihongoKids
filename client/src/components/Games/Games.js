@@ -39,6 +39,8 @@ const Games = () => {
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
 
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setCards(shuffledCards)
     setTurns(0)
   }
@@ -80,6 +82,11 @@ const Games = () => {
     setDisabled(false)
   }
 
+  // start new game automatically
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+
   return (
     <Container className="py-5">
       <Row className="justify-content-center">
@@ -99,6 +106,7 @@ const Games = () => {
                 />
               ))}
             </div>
+            <p>Turns: {turns}</p>
           </div>
         </Col>
       </Row>

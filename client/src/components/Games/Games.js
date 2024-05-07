@@ -94,7 +94,7 @@ const Games = () => {
           <div className="Game">
             <h1>Hiragana and Katakana Match</h1>
             <button onClick={shuffleCards}>New Game</button>
-
+            <p>Turns: {turns}</p>
             <div className="card-grid">
               {cards.map(card => (
                 <SingleCard
@@ -106,7 +106,6 @@ const Games = () => {
                 />
               ))}
             </div>
-            <p>Turns: {turns}</p>
           </div>
         </Col>
       </Row>

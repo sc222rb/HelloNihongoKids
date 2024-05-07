@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import About from './components/About.js';
 import Games from './components/Games/Games.js';
 import Home from './components/Home/Home.js';
 import Layout from './components/Layout/Layout.js';
@@ -39,7 +38,6 @@ const App = () => {
           }
         >
         <Route index element={<Home />} />
-        <Route path="/about" element={<About />} />
         <Route path="/games" element={<Games />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup />} />

@@ -73,7 +73,7 @@ export class AccountController {
         email: req.body.email,
         password: req.body.password,
         avatar: req.body.avatar,
-        permissionLevel: 1
+        permissionLevel: 15
       })
 
       await user.save()
@@ -84,7 +84,12 @@ export class AccountController {
       res
         .location(location.href)
         .status(201)
-        .json({ id: user.id })
+        .json({
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          permissionLevel: user.permissionLevel
+        })
     } catch (error) {
       let err = error
 

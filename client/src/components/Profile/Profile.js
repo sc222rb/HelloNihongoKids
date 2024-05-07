@@ -34,7 +34,7 @@ const Profile = () => {
           {error && <p>{error}</p>} {/* Display error message if error state is not null */}
           {userData ? (
             <div>
-              <h2 className="mt-3">{userData.username}</h2>
+              <p>Name: {userData.username}</p>
               <p>Email: {userData.email}</p>
               <Link to='/user-update' className='btn btn-primary'>
                 Update Profile

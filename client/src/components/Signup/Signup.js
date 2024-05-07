@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faEnvelope, faLock, faHippo, faSpider, faHorseHead, faDragon, faDove } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+const IMG_URL_BOY1 = (new URL('/public/images/avatar/boy1.png', import.meta.url)).href
+const IMG_URL_BOY2 = (new URL('/public/images/avatar/boy2.png', import.meta.url)).href
+const IMG_URL_BOY3 = (new URL('/public/images/avatar/boy3.png', import.meta.url)).href
+const IMG_URL_GIRL1 = (new URL('/public/images/avatar/girl1.png', import.meta.url)).href
+const IMG_URL_GIRL2 = (new URL('/public/images/avatar/girl2.png', import.meta.url)).href
+const IMG_URL_GIRL3 = (new URL('/public/images/avatar/girl3.png', import.meta.url)).href
 
 const Signup = () => {
   const [username, setUsername] = useState('')
@@ -15,11 +21,12 @@ const Signup = () => {
   const navigate = useNavigate()
 
   const avatarOptions = [
-    { value: 'faHippo', label: 'faHippo', icon: faHippo },
-    { value: 'faSpider', label: 'faSpider', icon: faSpider },
-    { value: 'faHorseHead', label: 'faHorseHead', icon: faHorseHead },
-    { value: 'faDragon', label: 'faDragon', icon: faDragon },
-    { value: 'faDove', label: 'faDove', icon: faDove }
+    { value: 'boy1', label: 'boy1', avatar: IMG_URL_BOY1 },
+    { value: 'boy2', label: 'boy2', avatar: IMG_URL_BOY2 },
+    { value: 'boy3', label: 'boy3', avatar: IMG_URL_BOY3 },
+    { value: 'girl1', label: 'girl1', avatar: IMG_URL_GIRL1 },
+    { value: 'girl2', label: 'girl2', avatar: IMG_URL_GIRL2 },
+    { value: 'girl3', label: 'girl3', avatar: IMG_URL_GIRL3 },
   ]
 
   const handleSubmit = async (e) => {
@@ -30,7 +37,7 @@ const Signup = () => {
     console.log('Email:', email)
     console.log('Password:', password)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password })
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password, avatar })
       if (response.status === 201) {
         navigate('/login');
       } else {
@@ -56,7 +63,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="col-md-6 mx-auto">
+    <div className="col-md-4 mx-auto">
       <h2 className="text-center mb-4">Sign Up</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
@@ -94,8 +101,14 @@ const Signup = () => {
           <Form.Label>Choose Avatar</Form.Label>
           <div className="d-flex flex-wrap">
             {avatarOptions.map(option => (
-              <button key={option.value} className="me-3 mb-3" style={{ cursor: 'pointer' }} onClick={() => setAvatar(option.value)}>
-                <FontAwesomeIcon icon={option.icon} size="3x" color={avatar === option.value ? 'blue' : 'gray'} />
+              <button
+                key={option.value}
+                className={`me-3 mb-3 ${avatar === option.value ? 'selected' : ''}`}
+                style={{ cursor: 'pointer', borderColor: avatar === option.value ? 'lightblue' : 'gray' }}
+                onClick={() => setAvatar(option.value)}
+                type="button"
+              >
+                <img src={option.avatar} alt={option.label} style={{ width: '1.5em', height: '1.5em' }} />
               </button>
             ))}
           </div>

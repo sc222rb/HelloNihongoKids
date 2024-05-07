@@ -53,12 +53,12 @@ export class UsersController {
   }
 
   /**
- * Updates a specific user.
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
- * @param {Function} next - Express next middleware function.
- */
+   * Updates a specific user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
   async update (req, res, next) {
     try {
       req.user.username = req.body.username

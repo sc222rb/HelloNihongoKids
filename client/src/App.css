@@ -15,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #283134;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,6 +50,6 @@ button {
 }
 
 button:hover {
-  background: #3878c2;
+  background: #44a9d4;
   color: #fff;
 }

@@ -1,19 +1,24 @@
 .card {
   position: relative;
-}
-.card img {
   width: 100%;
   display: block;
-  border: 2px solid #fff;
+  border: 2px solid #24b7c5;
   border-radius: 6px;
+  font-size: 5vw;
 }
 
-/* front of card - the picture */
+/* front of card - the text */
 .card .front {
   transform: rotateY(90deg);
   transition: all ease-in 0.2s;
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
+
 .flipped .front {
   transform: rotateY(0deg);
   transition-delay: 0.2s;
@@ -24,6 +29,7 @@
   transition: all ease-in 0.2s;
   transition-delay: 0.2s;
 }
+
 .flipped .back {
   transform: rotateY(90deg);
   transition-delay: 0s;

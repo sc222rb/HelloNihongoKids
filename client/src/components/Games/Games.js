@@ -3,28 +3,17 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './Games.css';
 import SingleCard from '../SingleCard/SingleCard.js'
 
-const IMG_URL_HIRA_A = (new URL('../Games/img/hiragana/a-gyou/a.png', import.meta.url)).href
-const IMG_URL_HIRA_I = (new URL('../Games/img/hiragana/a-gyou/i.png', import.meta.url)).href
-const IMG_URL_HIRA_U = (new URL('../Games/img/hiragana/a-gyou/u.png', import.meta.url)).href
-const IMG_URL_HIRA_E = (new URL('../Games/img/hiragana/a-gyou/e.png', import.meta.url)).href
-const IMG_URL_HIRA_O = (new URL('../Games/img/hiragana/a-gyou/o.png', import.meta.url)).href
-const IMG_URL_KATA_A = (new URL('../Games/img/katakana/a-gyou/a.png', import.meta.url)).href
-const IMG_URL_KATA_I = (new URL('../Games/img/katakana/a-gyou/i.png', import.meta.url)).href
-const IMG_URL_KATA_U = (new URL('../Games/img/katakana/a-gyou/u.png', import.meta.url)).href
-const IMG_URL_KATA_E = (new URL('../Games/img/katakana/a-gyou/e.png', import.meta.url)).href
-const IMG_URL_KATA_O = (new URL('../Games/img/katakana/a-gyou/o.png', import.meta.url)).href
-
-const cardImages = [
-  { "src": IMG_URL_HIRA_A, "filename": "a.png", matched: false },
-  { "src": IMG_URL_HIRA_I, "filename": "i.png", matched: false },
-  { "src": IMG_URL_HIRA_U, "filename": "u.png", matched: false },
-  { "src": IMG_URL_HIRA_E, "filename": "e.png", matched: false },
-  { "src": IMG_URL_HIRA_O, "filename": "o.png", matched: false },
-  { "src": IMG_URL_KATA_A, "filename": "a.png", matched: false },
-  { "src": IMG_URL_KATA_I, "filename": "i.png", matched: false },
-  { "src": IMG_URL_KATA_U, "filename": "u.png", matched: false },
-  { "src": IMG_URL_KATA_E, "filename": "e.png", matched: false },
-  { "src": IMG_URL_KATA_O, "filename": "o.png", matched: false }
+const cardData = [
+  { "src": 'あ', text: 'あ', label: 'a', matched: false },
+  { "src": 'い', text: 'い', label: 'i', matched: false },
+  { "src": 'う', text: 'う', label: 'u', matched: false },
+  { "src": 'え', text: 'え', label: 'e', matched: false },
+  { "src": 'お', text: 'お', label: 'o', matched: false },
+  { "src": 'ア', text: 'ア', label: 'a', matched: false },
+  { "src": 'イ', text: 'イ', label: 'i', matched: false },
+  { "src": 'ウ', text: 'ウ', label: 'u', matched: false },
+  { "src": 'エ', text: 'エ', label: 'e', matched: false },
+  { "src": 'オ', text: 'オ', label: 'o', matched: false }
 ]
 const Games = () => {
   const [cards, setCards] = useState([])
@@ -35,7 +24,7 @@ const Games = () => {
 
   // shuffle cards for new game
   const shuffleCards = () => {
-    const shuffledCards = [...cardImages]
+    const shuffledCards = [...cardData]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
 
@@ -55,10 +44,10 @@ const Games = () => {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true)
-      if (choiceOne.filename === choiceTwo.filename) {
+      if (choiceOne.label === choiceTwo.label) {
         setCards(prevCards => {
           return prevCards.map(card => {
-            if (card.filename === choiceOne.filename) {
+            if (card.label === choiceOne.label) {
               return { ...card, matched: true }
             } else {
               return card

@@ -2,29 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './Games.css';
 import SingleCard from '../SingleCard/SingleCard.js'
+import * as CardData from '../CardData/CardData.js'
 
-const cardData = [
-  { "src": 'あ', text: 'あ', label: 'a', matched: false },
-  { "src": 'い', text: 'い', label: 'i', matched: false },
-  { "src": 'う', text: 'う', label: 'u', matched: false },
-  { "src": 'え', text: 'え', label: 'e', matched: false },
-  { "src": 'お', text: 'お', label: 'o', matched: false },
-  { "src": 'ア', text: 'ア', label: 'a', matched: false },
-  { "src": 'イ', text: 'イ', label: 'i', matched: false },
-  { "src": 'ウ', text: 'ウ', label: 'u', matched: false },
-  { "src": 'エ', text: 'エ', label: 'e', matched: false },
-  { "src": 'オ', text: 'オ', label: 'o', matched: false }
-]
 const Games = () => {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
   const [disabled, setDisabled] = useState(false)
+  const [selectedColumn, setSelectedColumn] = useState([])
 
   // shuffle cards for new game
   const shuffleCards = () => {
-    const shuffledCards = [...cardData]
+    const shuffledCards = [...selectedColumn]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
 
@@ -74,7 +64,7 @@ const Games = () => {
   // start new game automatically
   useEffect(() => {
     shuffleCards()
-  }, [])
+  }, [selectedColumn])
 
   return (
     <Container className="py-5">
@@ -82,6 +72,18 @@ const Games = () => {
         <Col xs={12} md={8}>
           <div className="Game">
             <h1>Hiragana and Katakana Match</h1>
+            <div>
+              <button onClick={() => setSelectedColumn(CardData.columnA)}>あ行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnKa)}>か行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnSa)}>さ行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnTa)}>た行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnNa)}>な行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnHa)}>は行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnMa)}>ま行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnYa)}>や行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnRa)}>ら行</button>
+              <button onClick={() => setSelectedColumn(CardData.columnWaWoNn)}>わをん</button>
+            </div>
             <button onClick={shuffleCards}>New Game</button>
             <p>Turns: {turns}</p>
             <div className="card-grid">

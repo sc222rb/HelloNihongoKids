@@ -1,7 +1,7 @@
 import './SingleCard.css'
 
-export default function SingleCard({ card, handleChoice, flipped, disabled  }) {
-  const emojiFlower = '🌸'
+export default function SingleCard({ card, handleChoice, flipped, disabled }) {
+  const emojiFlower = '\u{1F338}'
 
   const handleClick = () => {
     if (!disabled) {

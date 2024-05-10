@@ -6,7 +6,7 @@
  */
 
 import createError from 'http-errors'
-import { User } from '../../models/user.js'
+import { UserModel } from '../../models/UserModel.js'
 
 /**
  * Encapsulates a controller.
@@ -23,7 +23,7 @@ export class UsersController {
   async loadUser (req, res, next, id) {
     try {
       // Get the user.
-      const user = await User.findById(id)
+      const user = await UserModel.findById(id)
 
       // If no user found send a 404 (Not Found).
       if (!user) {

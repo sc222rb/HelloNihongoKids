@@ -7,7 +7,7 @@
 
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors'
-import { User } from '../../models/user.js'
+import { UserModel } from '../../models/UserModel.js'
 
 /**
  * Encapsulates a controller.
@@ -22,12 +22,11 @@ export class AccountController {
    */
   async login (req, res, next) {
     try {
-      const user = await User.authenticate(req.body.email, req.body.password)
+      const user = await UserModel.authenticate(req.body.email, req.body.password)
 
       const payload = {
         sub: user.username,
-        email: user.email,
-        x_permission_level: user.permissionLevel
+        email: user.email
       }
 
       // Create the access token with the shorter lifespan.
@@ -68,12 +67,11 @@ export class AccountController {
    */
   async register (req, res, next) {
     try {
-      const user = new User({
+      const user = new UserModel({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        avatar: req.body.avatar,
-        permissionLevel: 15
+        avatar: req.body.avatar
       })
 
       await user.save()
@@ -87,8 +85,7 @@ export class AccountController {
         .json({
           id: user.id,
           username: user.username,
-          email: user.email,
-          permissionLevel: user.permissionLevel
+          email: user.email
         })
     } catch (error) {
       let err = error

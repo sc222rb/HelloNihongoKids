@@ -1,13 +1,13 @@
 /**
- * Mongoose model User.
- *
+ * @file Defines the User model.
+ * @module models/UserModel
  * @author Sayaka Chishiki Jakobsson
- * @version 1.0.0
  */
 
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import validator from 'validator'
+import { BASE_SCHEMA } from './baseSchema.js'
 
 const { isEmail } = validator
 
@@ -34,28 +34,10 @@ const schema = new mongoose.Schema({
   },
   avatar: {
     type: String
-  },
-  permissionLevel: Number
-}, {
-  timestamps: true,
-  toJSON: {
-    /**
-     * Performs a transformation of the resulting object to remove sensitive information.
-     *
-     * @param {object} doc - The mongoose document which is being converted.
-     * @param {object} ret - The plain object representation which has been converted.
-     */
-    transform: function (doc, ret) {
-      delete ret._id
-      delete ret.__v
-    },
-    virtuals: true // ensure virtual fields are serialized
   }
 })
 
-schema.virtual('id').get(function () {
-  return this._id.toHexString()
-})
+schema.add(BASE_SCHEMA)
 
 // Salts and hashes password before save.
 schema.pre('save', async function () {
@@ -82,4 +64,4 @@ schema.statics.authenticate = async function (email, password) {
 }
 
 // Create a model using the schema.
-export const User = mongoose.model('User', schema)
+export const UserModel = mongoose.model('User', schema)

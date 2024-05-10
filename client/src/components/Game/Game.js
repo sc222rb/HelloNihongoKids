@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import './Games.css';
+import './Game.css';
 import SingleCard from '../SingleCard/SingleCard.js'
 import * as CardData from '../CardData/CardData.js'
 
-const Games = () => {
+const Game = () => {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
@@ -104,4 +104,4 @@ const Games = () => {
   )
 }
 
-export default Games
+export default Game

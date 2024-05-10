@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Games from './components/Games/Games.js';
+import Game from './components/Game/Game.js';
 import Home from './components/Home/Home.js';
 import Layout from './components/Layout/Layout.js';
 import Login from './components/Login/Login.js';
@@ -38,7 +38,7 @@ const App = () => {
           }
         >
         <Route index element={<Home />} />
-        <Route path="/games" element={<Games />} />
+        <Route path="/game" element={<Game />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />

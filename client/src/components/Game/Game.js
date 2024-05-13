@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './Game.css';
 import SingleCard from '../SingleCard/SingleCard.js'
 import * as CardData from '../CardData/CardData.js'
+import axios from 'axios'
 
 const Game = () => {
   const [cards, setCards] = useState([])
@@ -11,9 +12,11 @@ const Game = () => {
   const [choiceTwo, setChoiceTwo] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const [selectedColumn, setSelectedColumn] = useState([])
+  const [selectedColumnName, setSelectedColumnName] = useState('')
+  const [gameCompleted, setGameCompleted] = useState(false)
 
   // shuffle cards for new game
-  const shuffleCards = () => {
+  const shuffleCards = useCallback(() => {
     const shuffledCards = [...selectedColumn]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
@@ -22,6 +25,12 @@ const Game = () => {
     setChoiceTwo(null)
     setCards(shuffledCards)
     setTurns(0)
+    setGameCompleted(false)
+  }, [selectedColumn]);
+
+  const handleColumnSelection = (column, columnName) => {
+    setSelectedColumn(column);
+    setSelectedColumnName(columnName);
   }
 
   // handle a choice
@@ -36,13 +45,18 @@ const Game = () => {
       setDisabled(true)
       if (choiceOne.label === choiceTwo.label) {
         setCards(prevCards => {
-          return prevCards.map(card => {
+          const updatedCards = prevCards.map(card => {
             if (card.label === choiceOne.label) {
               return { ...card, matched: true }
             } else {
               return card
             }
           })
+          const allMatched = updatedCards.every(card => card.matched)
+          if (allMatched) {
+            setGameCompleted(true)
+          }
+          return updatedCards
         })
         resetTurn()
       } else {
@@ -61,10 +75,30 @@ const Game = () => {
     setDisabled(false)
   }
 
+  const sendGameDataToBackend = (turns, selectedColumnName) => {
+    console.log('Game data:', turns, selectedColumnName)
+    axios.post(`${process.env.REACT_APP_API_URL}/game`, {
+      selectedColumnName: selectedColumnName,
+      turns: turns
+    })
+    .then(response => {
+      console.log('Game data sent successfully:', response.data);
+    })
+    .catch(error => {
+      console.error('Error sending game data to backend:', error);
+    })
+  }
+
+  useEffect(() => {
+    if (gameCompleted) {
+      sendGameDataToBackend(turns, selectedColumnName);
+    }
+  }, [gameCompleted, selectedColumnName, turns])
+
   // start new game automatically
   useEffect(() => {
     shuffleCards()
-  }, [selectedColumn])
+  }, [selectedColumn, shuffleCards])
 
   return (
     <Container className="py-5">
@@ -73,16 +107,16 @@ const Game = () => {
           <div className="Game">
             <h1>Hiragana and Katakana Match</h1>
             <div>
-              <button onClick={() => setSelectedColumn(CardData.columnA)}>あ行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnKa)}>か行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnSa)}>さ行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnTa)}>た行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnNa)}>な行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnHa)}>は行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnMa)}>ま行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnYa)}>や行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnRa)}>ら行</button>
-              <button onClick={() => setSelectedColumn(CardData.columnWaWoNn)}>わをん</button>
+              <button onClick={() => handleColumnSelection(CardData.columnA, 'あ行')}>あ行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnKa, 'か行')}>か行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnSa, 'さ行')}>さ行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnTa, 'た行')}>た行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnNa, 'な行')}>な行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnHa, 'は行')}>は行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnMa, 'ま行')}>ま行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnYa, 'や行')}>や行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnRa, 'ら行')}>ら行</button>
+              <button onClick={() => handleColumnSelection(CardData.columnWaWoNn, 'わをん')}>わをん</button>
             </div>
             <button onClick={shuffleCards}>New Game</button>
             <p>Turns: {turns}</p>
@@ -97,6 +131,7 @@ const Game = () => {
                 />
               ))}
             </div>
+            {gameCompleted && <p>Congratulations! You've matched all the cards!</p>}
           </div>
         </Col>
       </Row>

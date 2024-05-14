@@ -76,16 +76,21 @@ const Game = () => {
   }
 
   const sendGameDataToBackend = (turns, selectedColumnName) => {
-    console.log('Game data:', turns, selectedColumnName)
+    const accessToken = localStorage.getItem('accessToken')
+    console.log(accessToken)
     axios.post(`${process.env.REACT_APP_API_URL}/game`, {
       selectedColumnName: selectedColumnName,
-      turns: turns
+      turns: turns,
+    }, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
     })
     .then(response => {
-      console.log('Game data sent successfully:', response.data);
+      console.log('Game data sent successfully:', response.data)
     })
     .catch(error => {
-      console.error('Error sending game data to backend:', error);
+      console.error('Error sending game data to backend:', error)
     })
   }
 

@@ -47,9 +47,10 @@ schema.pre('save', async function () {
 /**
  * Authenticates a user.
  *
- * @param {string} email - ...
- * @param {string} password - ...
- * @returns {Promise<User>} ...
+ * @param {string} email - The email address of the user.
+ * @param {string} password - The password of the user.
+ * @returns {Promise<UserModel>} A promise that resolves with the authenticated user if the email and password match, otherwise rejects with an error.
+ * @throws {Error} If the email doesn't exist or the password is incorrect.
  */
 schema.statics.authenticate = async function (email, password) {
   const user = await this.findOne({ email })

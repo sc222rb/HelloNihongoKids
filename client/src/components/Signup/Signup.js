@@ -32,10 +32,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log('Submitting form...')
-    console.log('username:', username)
-    console.log('Email:', email)
-    console.log('Password:', password)
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password, avatar })
       if (response.status === 201) {

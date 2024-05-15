@@ -58,10 +58,6 @@ const UpdateProfile = ({ user }) => {
     try {
       const userId = localStorage.getItem('userId')
       const accessToken = localStorage.getItem('accessToken')
-      console.log('Update Profile ...')
-      console.log('Name:', username)
-      console.log('Email:', email)
-      console.log('Password:', password)
       const response = await axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}`, { username, email, password, avatar }, {
         headers: {
           Authorization: `Bearer ${accessToken}`

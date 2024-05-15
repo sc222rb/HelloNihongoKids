@@ -35,7 +35,6 @@ const Game = () => {
 
   // handle a choice
   const handleChoice = (card) => {
-    console.log(card)
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   }
 
@@ -65,8 +64,6 @@ const Game = () => {
     }
   }, [choiceOne, choiceTwo])
 
-  console.log(cards)
-
   // reset choices & increase turn
   const resetTurn = () => {
     setChoiceOne(null)
@@ -77,7 +74,6 @@ const Game = () => {
 
   const sendGameDataToBackend = (turns, selectedColumnName) => {
     const accessToken = localStorage.getItem('accessToken')
-    console.log(accessToken)
     axios.post(`${process.env.REACT_APP_API_URL}/game`, {
       selectedColumnName: selectedColumnName,
       turns: turns,

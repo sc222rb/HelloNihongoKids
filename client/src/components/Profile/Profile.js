@@ -82,7 +82,7 @@ const Profile = () => {
                     <div className="card-body">
                       <h5 className="card-title">Game {index + 1}</h5>
                       <h5 className="card-text">Turns: {game.turns}</h5>
-                      <h5 className="card-text">Column: {game.column}</h5>
+                      <h5 className="card-text">Column: {game.selectedColumnName}</h5>
                       <h5 className="card-text">Date: {formatDate(game.createdAt)}</h5>
                     </div>
                   </div>

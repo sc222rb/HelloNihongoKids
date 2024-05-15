@@ -29,6 +29,8 @@ const Game = () => {
     setCards(shuffledCards)
     setTurns(0)
     setGameCompleted(false)
+    setError('')
+    setSuccessMessage('')
   }, [selectedColumn]);
 
   const handleColumnSelection = (column, columnName) => {
@@ -115,26 +117,6 @@ const Game = () => {
   useEffect(() => {
     shuffleCards()
   }, [selectedColumn, shuffleCards])
-
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError('');
-      }, 2000); // 2 seconds, adjust as needed
-  
-      return () => clearTimeout(timer); // cleanup function to clear timeout when component unmounts or when error changes
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (successMessage) {
-      const timer = setTimeout(() => {
-        setSuccessMessage('');
-      }, 2000); // 2 seconds, adjust as needed
-  
-      return () => clearTimeout(timer); // cleanup function to clear timeout when component unmounts or when successMessage changes
-    }
-  }, [successMessage])
 
   return (
     <Container className="py-5">

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import './Game.css';
+import React, { useEffect, useState, useCallback } from 'react'
+import { Alert, Col, Container, Row } from 'react-bootstrap'
+import './Game.css'
 import SingleCard from '../SingleCard/SingleCard.js'
 import * as CardData from '../CardData/CardData.js'
 import axios from 'axios'
@@ -14,6 +14,9 @@ const Game = () => {
   const [selectedColumn, setSelectedColumn] = useState([])
   const [selectedColumnName, setSelectedColumnName] = useState('')
   const [gameCompleted, setGameCompleted] = useState(false)
+  const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+
 
   // shuffle cards for new game
   const shuffleCards = useCallback(() => {
@@ -72,24 +75,36 @@ const Game = () => {
     setDisabled(false)
   }
 
-  const sendGameDataToBackend = (turns, selectedColumnName) => {
+  const sendGameDataToBackend = async (turns, selectedColumnName) => {
     const accessToken = localStorage.getItem('accessToken')
-    axios.post(`${process.env.REACT_APP_API_URL}/game`, {
-      selectedColumnName: selectedColumnName,
-      turns: turns,
-    }, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/game`, {
+        selectedColumnName, turns
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      if (response.status === 201) {
+        setSuccessMessage('Game data saved successfully.')
+      } else {
+        setError('Unexpected response. Please try again.')
       }
-    })
-    .then(response => {
-      console.log('Game data sent successfully:', response.data)
-    })
-    .catch(error => {
-      console.error('Error sending game data to backend:', error)
-    })
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 500) {
+          setError('Server error. Please try again later.')
+        } else {
+          setError('An error occurred. Please try again.')
+        }
+      } else if (error.request) {
+        setError('Network error. Please check your internet connection and try again.')
+      } else {
+        setError('An error occurred. Please try again.')
+      }
+    }
   }
-
+ 
   useEffect(() => {
     if (gameCompleted) {
       sendGameDataToBackend(turns, selectedColumnName);
@@ -101,11 +116,33 @@ const Game = () => {
     shuffleCards()
   }, [selectedColumn, shuffleCards])
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError('');
+      }, 2000); // 2 seconds, adjust as needed
+  
+      return () => clearTimeout(timer); // cleanup function to clear timeout when component unmounts or when error changes
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000); // 2 seconds, adjust as needed
+  
+      return () => clearTimeout(timer); // cleanup function to clear timeout when component unmounts or when successMessage changes
+    }
+  }, [successMessage])
+
   return (
     <Container className="py-5">
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
           <div className="Game">
+          {successMessage && <Alert variant="success">{successMessage}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
             <h1>Hiragana and Katakana Match</h1>
             <div>
               <button onClick={() => handleColumnSelection(CardData.columnA, 'あ行')}>あ行</button>

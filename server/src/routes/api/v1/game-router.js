@@ -14,6 +14,10 @@ export const router = express.Router()
 
 const controller = new GameController()
 
+// ------------------------------------------------------------------------------
+//  Helpers
+// ------------------------------------------------------------------------------
+
 /**
  * Authenticates requests.
  *
@@ -27,9 +31,7 @@ const controller = new GameController()
  */
 const authenticateJWT = (req, res, next) => {
   try {
-    console.log(req.headers.authorization)
     const [authenticationScheme, token] = req.headers.authorization?.split(' ')
-    console.log(authenticationScheme)
     if (authenticationScheme !== 'Bearer') {
       throw new Error('Invalid authentication scheme.')
     }
@@ -48,6 +50,18 @@ const authenticateJWT = (req, res, next) => {
   }
 }
 
-// Map HTTP verbs and route paths to controller actions.
+// ------------------------------------------------------------------------------
+//  Routes
+// ------------------------------------------------------------------------------
 
-router.post('/', authenticateJWT, (req, res, next) => controller.saveStats(req, res, next))
+// GET game stats
+router.get('/',
+  authenticateJWT,
+  (req, res, next) => controller.findAll(req, res, next)
+)
+
+// POST game stats
+router.post('/',
+  authenticateJWT,
+  (req, res, next) => controller.saveStat(req, res, next)
+)

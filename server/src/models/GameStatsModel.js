@@ -10,12 +10,16 @@ import { BASE_SCHEMA } from './baseSchema.js'
 
 // Create a schema.
 const schema = new mongoose.Schema({
-  column: {
+  selectedColumnName: {
     type: String,
     required: true
   },
   turns: {
     type: Number,
+    required: true
+  },
+  userId: {
+    type: String,
     required: true
   }
 })

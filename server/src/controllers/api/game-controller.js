@@ -38,11 +38,14 @@ export class GameController {
     */
   async saveStat (req, res, next) {
     try {
-      const { selectedColumnName, turns } = req.body
+      console.log('req.body in saveStat:', req.body)
+      const { selectedColumnName, turns, userId } = req.body
       const gameStatDoc = await GameStatsModel.create({
         selectedColumnName,
-        turns
+        turns,
+        userId
       })
+      console.log('gameStatDoc in saveStat:', gameStatDoc.userId)
       const location = new URL(
         `${req.protocol}://${req.get('host')}${req.baseUrl}/${gameStatDoc.id}`
       )

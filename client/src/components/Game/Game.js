@@ -79,14 +79,17 @@ const Game = () => {
 
   const sendGameDataToBackend = async (turns, selectedColumnName) => {
     const accessToken = localStorage.getItem('accessToken')
+    const userId = localStorage.getItem('userId')
+    console.log(userId)
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/game`, {
-        selectedColumnName, turns
+        selectedColumnName, turns, userId
       }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       })
+      console.log(response.data.userId)
       if (response.status === 201) {
         setSuccessMessage('Game data saved successfully.')
       } else {

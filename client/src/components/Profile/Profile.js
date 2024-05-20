@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
   const [error, setError] = useState(null)
@@ -76,18 +76,13 @@ const Profile = () => {
           {top5Games.length > 0 ? (
             <div>
               <p>Top 5 Games with the Lowest Turns:</p>
-              <div className="card-deck">
+              <ul className="list-group">
                 {top5Games.map((game, index) => (
-                  <div className="card mb-3" key={index}>
-                    <div className="card-body">
-                      <h5 className="card-title">Game {index + 1}</h5>
-                      <h5 className="card-text">Turns: {game.turns}</h5>
-                      <h5 className="card-text">Column: {game.selectedColumnName}</h5>
-                      <h5 className="card-text">Date: {formatDate(game.createdAt)}</h5>
-                    </div>
-                  </div>
+                  <li className="list-group-item" key={index}>
+                    <p>Game: {index + 1}, Turns: {game.turns}, Column: {game.selectedColumnName}, Date: {formatDate(game.createdAt)}</p>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           ) : (
             <p>No game data available.</p>

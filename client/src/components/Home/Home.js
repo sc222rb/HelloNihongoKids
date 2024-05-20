@@ -7,7 +7,7 @@ const Home = () => {
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
           <h1 className="text-center mb-4">Welcome to Hello Nihongo Kids!</h1>
-          <p className="lead text-center">Empowering kids to learn Japanese through fun and interactive activities.</p>
+          <p className="lead text-center">This is a learning platform for Japanese characters, Hiragana and Katakana.</p>
         </Col>
       </Row>
     </Container>

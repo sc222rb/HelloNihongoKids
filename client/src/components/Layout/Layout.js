@@ -1,8 +1,8 @@
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { Outlet, Link } from 'react-router-dom';
 
-const Layout = ({ isLoggedIn, handleLogout }) => {
+const Layout = ({ isLoggedIn }) => {
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -14,7 +14,7 @@ const Layout = ({ isLoggedIn, handleLogout }) => {
               <>
                 <Nav.Link as={Link} to="/game">Game</Nav.Link>
                 <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-                <Button variant="link" onClick={handleLogout}>Logout</Button>
+                <Nav.Link as={Link} to="/logout">Log Out</Nav.Link>
               </>
             ) : (
               <>

@@ -3,6 +3,10 @@ import { Col, Container, Row } from 'react-bootstrap'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+/**
+ * Profile component representing the user profile page.
+ * @returns {JSX.Element} Profile component.
+ */
 const Profile = () => {
   const [error, setError] = useState(null)
   const [userData, setUserData] = useState(null) // State to hold user data
@@ -10,6 +14,10 @@ const Profile = () => {
   const accessToken = localStorage.getItem('accessToken')
   const userId = localStorage.getItem('userId')
 
+   /**
+   * Fetches user data from the API.
+   * @returns {void}
+   */
   const fetchUser = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
@@ -23,6 +31,10 @@ const Profile = () => {
     }
   }
 
+   /**
+   * Fetches game data from the API.
+   * @returns {void}
+   */
   const fetchGameData = async () => {
     try {
       const accessToken = localStorage.getItem('accessToken')
@@ -43,13 +55,22 @@ const Profile = () => {
     // eslint-disable-next-line
   }, [])
 
-  // Function to format the date
+  /**
+   * Formats the date.
+   * @param {string} dateString - Date string.
+   * @returns {string} Formatted date string.
+   */
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
   }
 
-  // sorting by number of turns in ascending order
+  /**
+   * Sorts games by number of turns in ascending order.
+   * @param {Object} a - First game object.
+   * @param {Object} b - Second game object.
+   * @returns {number} Comparison result.
+   */
   const sortByTurns = (a, b) => {
     return a.turns - b.turns;
   }

@@ -11,13 +11,27 @@ import Profile from './components/Profile/Profile.js'
 import Signup from './components/Signup/Signup.js'
 import UpdateProfile from './components/UpdateProfile/UpdateProfile.js'
 
+
+/**
+ * The main App component that sets up routing for the application.
+ * @returns {JSX.Element} The App component.
+ */
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true')
 
+   /**
+   * Handles user login by setting the isLoggedIn state to true.
+   * @returns {void}
+   */
   const handleLogin = () => {
     setIsLoggedIn(true)
   }
 
+  /**
+   * Handles user logout by setting the isLoggedIn state to false and
+   * removing relevant data from localStorage.
+   * @returns {void}
+   */
   const handleLogout = () => {
     setIsLoggedIn(false)
     localStorage.removeItem('accessToken')

@@ -5,20 +5,26 @@ import SingleCard from '../SingleCard/SingleCard.js'
 import * as CardData from '../CardData/CardData.js'
 import axios from 'axios'
 
+/**
+ * Component representing the memory card game.
+ * @returns {JSX.Element} Game component
+ */
 const Game = () => {
-  const [cards, setCards] = useState([])
-  const [turns, setTurns] = useState(0)
-  const [choiceOne, setChoiceOne] = useState(null)
-  const [choiceTwo, setChoiceTwo] = useState(null)
-  const [disabled, setDisabled] = useState(false)
-  const [selectedColumn, setSelectedColumn] = useState([])
-  const [selectedColumnName, setSelectedColumnName] = useState('')
-  const [gameCompleted, setGameCompleted] = useState(false)
-  const [error, setError] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
+  const [cards, setCards] = useState([]) // Array of cards
+  const [turns, setTurns] = useState(0) // Number of turns
+  const [choiceOne, setChoiceOne] = useState(null) // First chosen card
+  const [choiceTwo, setChoiceTwo] = useState(null) // Second chosen card
+  const [disabled, setDisabled] = useState(false) // Whether cards are disabled
+  const [selectedColumn, setSelectedColumn] = useState([]) // Selected column of cards
+  const [selectedColumnName, setSelectedColumnName] = useState('') // Name of selected column
+  const [gameCompleted, setGameCompleted] = useState(false) // Whether game is completed
+  const [error, setError] = useState('') // Error message
+  const [successMessage, setSuccessMessage] = useState('') // Success message
 
 
-  // shuffle cards for new game
+   /**
+   * Shuffles the cards for a new game.
+   */
   const shuffleCards = useCallback(() => {
     const shuffledCards = [...selectedColumn]
       .sort(() => Math.random() - 0.5)
@@ -33,17 +39,27 @@ const Game = () => {
     setSuccessMessage('')
   }, [selectedColumn]);
 
+  /**
+   * Handles the selection of a column of cards.
+   * @param {Array} column - Selected column of cards
+   * @param {string} columnName - Name of the selected column
+   */
   const handleColumnSelection = (column, columnName) => {
     setSelectedColumn(column);
     setSelectedColumnName(columnName);
   }
 
-  // handle a choice
+  /**
+   * Handles the selection of a card.
+   * @param {object} card - Selected card
+   */
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   }
 
-  // compare 2 selected cards
+   /**
+   * Compares two selected cards.
+   */
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true)
@@ -69,7 +85,9 @@ const Game = () => {
     }
   }, [choiceOne, choiceTwo])
 
-  // reset choices & increase turn
+  /**
+   * Resets choices and increases turn count.
+   */
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
@@ -77,6 +95,9 @@ const Game = () => {
     setDisabled(false)
   }
 
+  /**
+   * Sends game data to backend when game is completed.
+   */
   const sendGameDataToBackend = async (turns, selectedColumnName) => {
     const accessToken = localStorage.getItem('accessToken')
     const userId = localStorage.getItem('userId')
@@ -116,7 +137,9 @@ const Game = () => {
     }
   }, [gameCompleted, selectedColumnName, turns])
 
-  // start new game automatically
+  /**
+   * Starts a new game automatically.
+   */
   useEffect(() => {
     shuffleCards()
   }, [selectedColumn, shuffleCards])

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Alert, Form } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Alert, Form } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 const IMG_URL_BOY1 = (new URL('/public/images/avatar/boy1.png', import.meta.url)).href
 const IMG_URL_BOY2 = (new URL('/public/images/avatar/boy2.png', import.meta.url)).href
@@ -12,6 +12,10 @@ const IMG_URL_GIRL1 = (new URL('/public/images/avatar/girl1.png', import.meta.ur
 const IMG_URL_GIRL2 = (new URL('/public/images/avatar/girl2.png', import.meta.url)).href
 const IMG_URL_GIRL3 = (new URL('/public/images/avatar/girl3.png', import.meta.url)).href
 
+/**
+ * Signup component representing the sign-up form.
+ * @returns {JSX.Element} Signup component.
+ */
 const Signup = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -29,13 +33,18 @@ const Signup = () => {
     { value: 'girl3', label: 'girl3', avatar: IMG_URL_GIRL3 },
   ]
 
+  /**
+   * Handles form submission for user sign-up.
+   * @param {Event} e - Form submission event.
+   * @returns {void}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { username, email, password, avatar })
       if (response.status === 201) {
-        navigate('/login');
+        navigate('/login')
       } else {
         setError('Unexpected response. Please try again.')
       }

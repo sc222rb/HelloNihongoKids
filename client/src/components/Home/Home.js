@@ -1,6 +1,10 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
+/**
+ * Component representing the Home page.
+ * @returns {JSX.Element} Home component
+ */
 const Home = () => {
   return (
     <Container className="py-5">

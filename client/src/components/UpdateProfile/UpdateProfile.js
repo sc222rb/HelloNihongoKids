@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, Form } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Alert, Form } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const IMG_URL_BOY1 = (new URL('/public/images/avatar/boy1.png', import.meta.url)).href
 const IMG_URL_BOY2 = (new URL('/public/images/avatar/boy2.png', import.meta.url)).href
@@ -12,6 +13,12 @@ const IMG_URL_GIRL1 = (new URL('/public/images/avatar/girl1.png', import.meta.ur
 const IMG_URL_GIRL2 = (new URL('/public/images/avatar/girl2.png', import.meta.url)).href
 const IMG_URL_GIRL3 = (new URL('/public/images/avatar/girl3.png', import.meta.url)).href
 
+/**
+ * UpdateProfile component representing the form for updating user profile.
+ * @param {Object} props - Props for the UpdateProfile component.
+ * @param {Object} props.user - The user object containing information about the user.
+ * @returns {JSX.Element} UpdateProfile component.
+ */
 const UpdateProfile = ({ user }) => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -34,6 +41,10 @@ const UpdateProfile = ({ user }) => {
     fetchUser()
   }, [])
 
+  /**
+   * Fetches user data from the server.
+   * @returns {void}
+   */
   const fetchUser = async () => {
     try {
       const userId = localStorage.getItem('userId')
@@ -51,7 +62,11 @@ const UpdateProfile = ({ user }) => {
     }
   }
 
-
+  /**
+   * Handles form submission for updating user profile.
+   * @param {Event} e - Form submission event.
+   * @returns {void}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -141,6 +156,10 @@ const UpdateProfile = ({ user }) => {
       </Form>
     </div>
   )
+}
+
+UpdateProfile.propTypes = {
+  user: PropTypes.object.isRequired,
 }
 
 export default UpdateProfile

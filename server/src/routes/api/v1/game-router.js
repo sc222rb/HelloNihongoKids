@@ -36,9 +36,8 @@ const authenticateJWT = (req, res, next) => {
       throw new Error('Invalid authentication scheme.')
     }
     const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-    console.log(payload)
     req.user = {
-      username: payload.sub,
+      userId: payload.sub,
       email: payload.email
     }
 

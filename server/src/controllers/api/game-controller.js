@@ -20,7 +20,8 @@ export class GameController {
    */
   async findAll (req, res, next) {
     try {
-      const gameStats = await GameStatsModel.find()
+      console.log(req.user, 'in findAll')
+      const gameStats = await GameStatsModel.find({ userId: req.user.userId })
       console.log('gameStats in findAll:', gameStats)
       res.json(gameStats)
     } catch (error) {

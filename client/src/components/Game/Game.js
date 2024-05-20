@@ -80,7 +80,7 @@ const Game = () => {
   const sendGameDataToBackend = async (turns, selectedColumnName) => {
     const accessToken = localStorage.getItem('accessToken')
     const userId = localStorage.getItem('userId')
-    console.log(userId)
+    console.log('in sendGameDataToBackend', userId)
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/game`, {
         selectedColumnName, turns, userId

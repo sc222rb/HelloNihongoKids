@@ -12,6 +12,21 @@ import { GameStatsModel } from '../../models/GameStatsModel.js'
  */
 export class GameController {
   /**
+   * Sends a JSON response containing a game.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async find (req, res, next) {
+    try {
+      res.json(req.doc)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
    * Sends a JSON response containing all tasks.
    *
    * @param {object} req - Express request object.

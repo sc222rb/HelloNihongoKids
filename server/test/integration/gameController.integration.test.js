@@ -2,8 +2,8 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import { MongoMemoryServer } from 'mongodb-memory-server'
-import { GameStatsModel } from '../src/models/GameStatsModel'
-import { app, startServer, server } from '../src/server.js'
+import { GameStatsModel } from '../../src/models/GameStatsModel.js'
+import { app, startServer, server } from '../../src/server.js'
 
 let mongod
 let mockToken

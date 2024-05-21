@@ -26,7 +26,7 @@ function SingleCard({ card, handleChoice, flipped, disabled }) {
   return (
     <div className="card">
       <div className={flipped ? "flipped" : ""}>
-        <div className="front" src={card.src} alt="card front">{card.text}</div>
+        <div className="front" src={card.src}>{card.text}</div>
         <div className="back" onClick={handleClick}>{emojiFlower}</div>
       </div>
     </div>

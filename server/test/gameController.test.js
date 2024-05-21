@@ -29,8 +29,12 @@ afterAll(async () => {
   server.close() // Close the server after tests
 })
 
-describe('GameController', () => {
-  describe('findAll', () => {
+beforeEach(async () => {
+  await GameStatsModel.deleteMany({})
+})
+
+describe('GameController Integration Tests', () => {
+  describe('GET /hnk/api/v1/game', () => {
     it('should return an array of game stats for a given user', async () => {
       const userId = 'mockUserId'
       await GameStatsModel.create([
@@ -52,7 +56,7 @@ describe('GameController', () => {
     })
   })
 
-  describe('saveStat', () => {
+  describe('POST /hnk/api/v1/game', () => {
     it('should save game stats to the database and return a 201 response', async () => {
       const gameStatsData = {
         selectedColumnName: 'さ行',

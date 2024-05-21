@@ -37,7 +37,7 @@ const Game = () => {
     setGameCompleted(false)
     setError('')
     setSuccessMessage('')
-  }, [selectedColumn]);
+  }, [selectedColumn])
 
   /**
    * Handles the selection of a column of cards.
@@ -45,8 +45,8 @@ const Game = () => {
    * @param {string} columnName - Name of the selected column
    */
   const handleColumnSelection = (column, columnName) => {
-    setSelectedColumn(column);
-    setSelectedColumnName(columnName);
+    setSelectedColumn(column)
+    setSelectedColumnName(columnName)
   }
 
   /**

@@ -30,13 +30,13 @@ export class GameController {
   }
 
   /**
-    * Save game statistics to the database.
-    *
-    * @param {object} req - Express request object.
-    * @param {object} res - Express response object.
-    * @param {Function} next - Express next middleware function.
-    * @returns {Promise<void>} A Promise representing the completion of the operation.
-    */
+   * Save game statistics to the database.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   * @returns {Promise<void>} A Promise representing the completion of the operation.
+   */
   async saveStat (req, res, next) {
     try {
       console.log('req.body in saveStat:', req.body)

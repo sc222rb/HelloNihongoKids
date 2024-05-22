@@ -1,6 +1,7 @@
 import './App.css'
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import About from './components/About/About.js'
 import Game from './components/Game/Game.js'
 import Home from './components/Home/Home.js'
 import Layout from './components/Layout/Layout.js'
@@ -51,6 +52,7 @@ const App = () => {
           }
         >
         <Route index element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/game" element={<Game />} />
         <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout handleLogout={handleLogout} />} />

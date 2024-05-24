@@ -79,9 +79,6 @@ describe('GameController Unit Tests', () => {
       // Call the method to test
       await controller.saveStat(req, res, next)
 
-      console.log('res.status calls:', res.status.mock.calls)
-      console.log('res.location calls:', res.location.mock.calls)
-      console.log('res.json calls:', res.json.mock.calls)
       // Assert that res.status and res.json were called correctly
       const location = `${req.protocol}://${req.get('host')}${req.baseUrl}/${mockStat.id}`
       expect(res.status).toHaveBeenCalledTimes(1)

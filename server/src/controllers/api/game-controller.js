@@ -35,9 +35,7 @@ export class GameController {
    */
   async findAll (req, res, next) {
     try {
-      console.log(req.user, 'in findAll')
       const gameStats = await GameStatsModel.find({ userId: req.user.userId })
-      console.log('gameStats in findAll:', gameStats)
       res.json(gameStats)
     } catch (error) {
       next(error)
@@ -54,14 +52,12 @@ export class GameController {
    */
   async saveStat (req, res, next) {
     try {
-      console.log('req.body in saveStat:', req.body)
       const { selectedColumnName, turns, userId } = req.body
       const gameStatDoc = await GameStatsModel.create({
         selectedColumnName,
         turns,
         userId
       })
-      console.log('gameStatDoc in saveStat:', gameStatDoc.userId)
       const location = new URL(
         `${req.protocol}://${req.get('host')}${req.baseUrl}/${gameStatDoc.id}`
       )

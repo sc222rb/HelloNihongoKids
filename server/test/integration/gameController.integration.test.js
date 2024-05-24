@@ -33,8 +33,18 @@ beforeEach(async () => {
   await GameStatsModel.deleteMany({})
 })
 
+/**
+ * Integration tests for the GameController class.
+ * Tests the endpoints related to game statistics retrieval and saving.
+ */
 describe('GameController Integration Tests', () => {
+  /**
+   * Tests the GET /hnk/api/v1/game endpoint.
+   */
   describe('GET /hnk/api/v1/game', () => {
+    /**
+     * Tests the retrieval of game statistics for a given user.
+     */
     it('should return an array of game stats for a given user', async () => {
       const userId = 'mockUserId'
       await GameStatsModel.create([
@@ -55,8 +65,13 @@ describe('GameController Integration Tests', () => {
       expect(response.body[1].turns).toBe(15)
     })
   })
-
+  /**
+   * Tests the POST /hnk/api/v1/game endpoint.
+   */
   describe('POST /hnk/api/v1/game', () => {
+    /**
+     * Tests the saving of game statistics to the database.
+     */
     it('should save game stats to the database and return a 201 response', async () => {
       const gameStatsData = {
         selectedColumnName: 'さ行',

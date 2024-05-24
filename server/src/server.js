@@ -75,7 +75,7 @@ async function initializeApp () {
     // Enable CORS
     app.use(cors(
       {
-        origin: ['https://hello-nihongo-kids.vercel.com'],
+        origin: ['https://hello-nihongo-kids.vercel.app/'],
         methods: ['POST', 'GET'],
         credentials: true
       }

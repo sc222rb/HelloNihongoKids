@@ -22,11 +22,11 @@ const Layout = ({ isLoggedIn }) => {
               <>
                 <Nav.Link as={Link} to="/game">Game</Nav.Link>
                 <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-                <Nav.Link as={Link} to="/logout">Log Out</Nav.Link>
+                <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/login">Log In</Nav.Link>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
               </>
             )}

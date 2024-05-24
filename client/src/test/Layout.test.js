@@ -10,8 +10,8 @@ describe('Layout component', () => {
     expect(screen.getByText(/Home/i)).toBeInTheDocument()
     expect(screen.getByText(/Game/i)).toBeInTheDocument()
     expect(screen.getByText(/Profile/i)).toBeInTheDocument()
-    expect(screen.getByText(/Log Out/i)).toBeInTheDocument()
-    expect(screen.queryByText(/Log In/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/Logout/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Login/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/Sign Up/i)).not.toBeInTheDocument()
   })
 
@@ -21,8 +21,8 @@ describe('Layout component', () => {
     expect(screen.getByText(/Home/i)).toBeInTheDocument()
     expect(screen.queryByText(/Game/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/Profile/i)).not.toBeInTheDocument()
-    expect(screen.queryByText(/Log Out/i)).not.toBeInTheDocument()
-    expect(screen.getByText(/Log In/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Logout/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/Login/i)).toBeInTheDocument()
     expect(screen.getByText(/Sign Up/i)).toBeInTheDocument()
   })
 

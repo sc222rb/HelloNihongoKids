@@ -73,7 +73,13 @@ async function initializeApp () {
     // app.use(express.static(join(directoryFullName, '..', 'public')))
 
     // Enable CORS
-    app.use(cors())
+    app.use(cors(
+      {
+        origin: ['https://hello-nihongo-kids.vercel.com'],
+        methods: ['POST', 'GET'],
+        credentials: true
+      }
+    ))
 
     // Set various HTTP headers to make the application little more secure (https://www.npmjs.com/package/helmet).
     app.use(helmet())

@@ -26,6 +26,10 @@ const Game = () => {
    * Shuffles the cards for a new game.
    */
   const shuffleCards = useCallback(() => {
+    if (selectedColumn.length === 0) {
+      setError('Please select a column to start the game.')
+      return
+    }
     const shuffledCards = [...selectedColumn]
       .sort(() => Math.random() - 0.5)
       .map(card => ({ ...card, id: Math.random() }))
@@ -47,6 +51,7 @@ const Game = () => {
   const handleColumnSelection = (column, columnName) => {
     setSelectedColumn(column)
     setSelectedColumnName(columnName)
+    shuffleCards()
   }
 
   /**
@@ -162,7 +167,6 @@ const Game = () => {
               <button onClick={() => handleColumnSelection(CardData.columnRa, 'ら行')}>ら行</button>
               <button onClick={() => handleColumnSelection(CardData.columnWaWoNn, 'わをん')}>わをん</button>
             </div>
-            <button onClick={shuffleCards}>New Game</button>
             <p>Turns: {turns}</p>
             <div className="card-grid">
               {cards.map(card => (
